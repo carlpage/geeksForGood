@@ -1,6 +1,7 @@
 angular.module('MyApp')
   .controller('LoginCtrl', function($scope, $rootScope, $location, $window, $auth) {
     $scope.login = function() {
+      console.log('in login');
       $auth.login($scope.user)
         .then(function(response) {
           $rootScope.currentUser = response.data.user;
@@ -15,6 +16,7 @@ angular.module('MyApp')
     };
 
     $scope.authenticate = function(provider) {
+      console.log('in authenticate');
       $auth.authenticate(provider)
         .then(function(response) {
           $rootScope.currentUser = response.data.user;
@@ -33,4 +35,5 @@ angular.module('MyApp')
           }
         });
     };
-  });
+
+  }); // end controller

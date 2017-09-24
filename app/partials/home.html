@@ -1,37 +1,72 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-4">
-      <div class="panel">
-        <div class="panel-body">
-          <h3>Heading</h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui.</p>
-          <a href="#" role="button" class="btn btn-default">View details</a>
+
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+
+  </div> <!-- end row -->
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Content</h3>
+          <span class="pull-right clickable">
+            <i class="glyphicon glyphicon-menu-up"></i>
+          </span>
         </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel">
         <div class="panel-body">
-          <h3>Heading</h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui.</p>
-          <a href="#" role="button" class="btn btn-default">View details</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel">
-        <div class="panel-body">
-          <h3>Heading</h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui.</p>
-          <a href="#" role="button" class="btn btn-default">View details</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="icheck"> Lorem (12)</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="icheck"> Ipsum (2)</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="icheck"> Porro (4)</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="icheck"> Quisquam (7)</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="icheck"> Dolorem (8)</label>
+          </div>
+        </div> <!-- end panel-body -->
+      </div> <!-- end panel -->
+
+    </div> <!-- end col-sm-2 -->
+
+    <div class="col-sm-5">
+      <tabset>
+        <tab select="" ng-init="" heading="Projects" active="Projects">
+          <div class="card" ng-repeat="pj in projects">
+            <div class="title">
+              <h2>{{pj.title}}</h2>
+              <div class="rating pull-right">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              </div> <!-- end rating -->
+            </div> <!-- end title -->
+            <textarea name="" id="" cols="20" rows="10"></textarea>
+            <button class="btn-btn-default">Tag</button>
+          </div> <!-- end card -->
+        </tab> <!-- end projects tab -->
+        <tab select="alertMe()" heading="Data Set">
+          <div class="card" ng-repeat="ds in dataset">
+            <h2>{{ds.title}}</h2>
+            <a href="">{{ds.link}}</a>
+            <button class="btn-btn-default">Tag</button>
+          </div> <!-- end card -->
+        </tab> <!-- end data set tab -->
+      </tabset> <!-- end tabset -->
+    </div> <!-- end col-sm-5 -->
+
+    <div class="col-sm-5">
+      <!-- map goes here -->
+    </div> <!-- end col-sm-5 -->
+
+  </div> <!-- end row -->
+</div> <!-- end container -->
