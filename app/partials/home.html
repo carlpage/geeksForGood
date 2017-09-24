@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="homeController as hc">
+<div class="container-fluid" ng-controller="HomeController as hc">
   <div class="row">
 
     <div class="input-group">
@@ -6,7 +6,7 @@
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Go!</button>
       </span>
-    </div><!-- /input-group -->
+    </div> <!-- input-group -->
 
   </div> <!-- end row -->
   <div class="row">
@@ -15,7 +15,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">Content</h3>
           <span class="pull-right clickable">
-            <i class="glyphicon glyphicon-menu-up"></i>
+            <i class="fa fa-caret-square-o-up"></i>
           </span>
         </div>
         <div class="panel-body">
@@ -43,33 +43,46 @@
 
       <tabset>
         <tab select="hc.getProjects" ng-init="hc.getProjects" heading="Projects" active="Projects">
-          <div class="card" >
-            <!-- ng-repeat="pj in hc.projects" -->
+          <div class="card" ng-repeat="pj in hc.projectList">
             <div class="title">
-              <h2>{{pj.title}}</h2>
+              <h2>{{pj.name}}</h2>
+              <p>{{pj.description}}</p>
               <div class="rating pull-right">
-                <i class="fa fa-caret-square-o-up" ng-click="hc.addScore()"></i>
-                <i class="fa fa-caret-square-o-down" ng-click="hc.reduceScore()"></i>
-                <p>{{pj.score}} 21</p>
+                <i class="fa fa-caret-square-o-up" ng-click="{{pj.score}} += 1"></i>
+                <i class="fa fa-caret-square-o-down" ng-click="{{pj.score}} += 1"></i>
+                <p>{{pj.score}}</p>
               </div> <!-- end rating -->
             </div> <!-- end title -->
-            <textarea name="" id="" rows="3"></textarea>
+            <textarea name="" id="" rows="3" placeholder="Type you comment here..."></textarea>
             <button class="btn-btn-default">Tag</button>
+            <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+            <div collapse="isCollapsed">
+              <div class="well well-lg">Some content</div>
+            </div>
           </div> <!-- end card -->
+          <div class="text-center">
+            <pagination total-items="hc.projectList.length" ng-model="hc.currentPage" items-per-page="hc.itemsPerPage" class="pagination-sm" ng-change="hc.pageChanged()"></pagination>
+          </div>
          </tab> <!-- end projects tab -->
 
         <tab select="hc.getDataSet()" heading="Data Set">
-          <div class="card">
-             <!-- ng-repeat="ds in hc.dataset" -->
+          <div class="card" ng-repeat="ds in hc.dataset" >
             <h2>{{ds.title}}</h2>
             <div class="rating pull-right">
-              <i class="fa fa-caret-square-o-up" ng-click="hc.addScore()"></i>
-              <i class="fa fa-caret-square-o-down" ng-click="hc.reduceScore()"></i>
-              <p>{{pj.score}} 21</p>
+              <i class="fa fa-caret-square-o-up" ng-click="{{ds.score}} += 1"></i>
+              <i class="fa fa-caret-square-o-down" ng-click="{{ds.score}} -= 1"></i>
+              <p>{{ds.score}}</p>
             </div> <!-- end rating -->
             <a href="{{ds.link}}">{{ds.link}}</a>
             <button class="btn-btn-default">Tag</button>
+            <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+            <div collapse="isCollapsed">
+              <div class="well well-lg">Some content</div>
+            </div>
           </div> <!-- end card -->
+          <div class="center-block">
+            <pagination total-items="hc.dataList.length" ng-model="hc.currentPage" items-per-page="hc.itemsPerPage" class="pagination-sm" ng-change="hc.pageChanged()"></pagination>
+          </div>
         </tab> <!-- end data set tab -->
 
       </tabset> <!-- end tabset -->

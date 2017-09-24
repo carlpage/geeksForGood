@@ -15,10 +15,16 @@ dotenv.load();
 
 // Models
 var User = require('./models/User');
+var Project = require('./models/Project');
+var Dataset = require('./models/Dataset');
+var ProjectComment = require('./models/ProjectComment');
+var DatasetComment = require('./models/DatasetComment');
 
 // Controllers
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var projectController = require('./controllers/project');
+var datasetController = require('./controllers/dataset');
 
 var app = express();
 
@@ -62,6 +68,10 @@ app.post('/login', userController.loginPost);
 app.post('/forgot', userController.forgotPost);
 app.post('/reset/:token', userController.resetPost);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
+app.post('/projects', projectController.projectPost);
+app.post('/datasets', datasetController.datasetPost);
+app.get('/projects', projectController.projectList);
+app.get('/datasets', datasetController.datasetList);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'app', 'index.html'));
