@@ -6,7 +6,7 @@ var qs = require('querystring');
 var Dataset = require('../models/Dataset');
 var DatasetComment = require('../models/DatasetComment');
 
-export.datasetCommentPost = function(req, res, next) {
+exports.datasetCommentPost = function(req, res, next) {
     req.assert('comment', 'Comment cannot be blank').notEmpty();
     req.assert('score', 'Score cannot be blank').notEmpty();
 
@@ -29,7 +29,7 @@ export.datasetCommentPost = function(req, res, next) {
     });
 };
 
-export.commentList = function(req, res, next) {
+exports.commentList = function(req, res, next) {
     DatasetComment.where({datasetId: req.params.datasetId}).fetchAll().then(function(datasetcomments) {
         res.send(JSON.stringify({datasetcomments: datasetcomments}));
     });

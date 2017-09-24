@@ -6,7 +6,7 @@ var qs = require('querystring');
 var Project = require('../models/Project');
 var ProjectComment = require('../models/ProjectComment');
 
-export.projectCommentPost = function(req, res, next) {
+exports.projectCommentPost = function(req, res, next) {
     
     req.assert('comment', 'Comment cannot be blank').notEmpty();
     req.assert('score', 'Score cannot be blank').notEmpty();
@@ -29,7 +29,7 @@ export.projectCommentPost = function(req, res, next) {
         });
 };
 
-export.commentList = function (req, res, next) {
+exports.commentList = function (req, res, next) {
     ProjectComment.where({projectId: req.params.projectId}).fetchAll().then(function(projectcomments) {
         res.send(JSON.stringify({projectcomments: projectcomments}));
     });
