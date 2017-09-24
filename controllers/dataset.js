@@ -23,8 +23,11 @@ exports.datasetPost = function(req, res, next) {
       .save()
       .then(function(dataset) {
         if (!dataset) {
-          return res.status(401).send({ msg: 'There was a problem creating this dataset.'
+            return res.status(401).send({ msg: 'There was a problem creating this dataset.'
           });
+        }
+        else {
+          res.redirect('/');
         }
       });
 };
