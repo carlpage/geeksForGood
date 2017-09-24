@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Add DataSet</h1>
+  <form ng-submit="hc.addDataset(dataset)">
+    <legend>Add A DataSet</legend>
+    <div class="form-group">
+      <label for="name">DataSet Name</label>
+      <input type="text" name="dataset_name" id="dataset_name" placeholder="DataSet Name" class="form-control" ng-model="dataset.name" autofocus>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" name="dataset_description" id="dataset_description" placeholder="DataSet Description" class="form-control" ng-model="dataset.description">
+    </div>
+    <div class="form-group">
+      <label for="location">DataSet Location</label>
+      <input type="integer" name="zipcode" id="zipcode" placeholder="Enter a Zipcode" class="form-control" ng-model="dataset.zipcode">
+    </div>
+    <div class="form-group">
+      <label for="location">DataSet URL</label>
+      <input type="text" name="url" id="url" placeholder="Enter Documentation URL" class="form-control" ng-model="dataset.url">
+    </div>
+    <button type="submit" class="btn btn-success">Add DataSet</button>
+  </form>
+</div>

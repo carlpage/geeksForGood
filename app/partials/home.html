@@ -39,11 +39,11 @@
 
     </div> <!-- end col-sm-2 -->
 
-    <div class="col-sm-5">
+    <div class="col-sm-10">
 
       <tabset>
         <tab select="hc.getProjects" ng-init="hc.getProjects" heading="Projects" active="Projects">
-          <div class="card" ng-repeat="pj in hc.projectList">
+          <div class="card center-block" ng-repeat="pj in hc.projectList">
             <div class="title">
               <h2>{{pj.name}}</h2>
               <p>{{pj.description}}</p>
@@ -57,7 +57,12 @@
             <button class="btn-btn-default">Tag</button>
             <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
             <div collapse="isCollapsed">
-              <div class="well well-lg">Some content</div>
+              <div class="well well-lg">
+                <h3>Excited for this event!</h3>
+                <h3>I'm going!</h3>
+                <h3>Yuuuup!</h3>
+                <h3>heyyyooooo</h3>
+              </div>
             </div>
           </div> <!-- end card -->
           <div class="text-center">

@@ -37,6 +37,16 @@ angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput', 'ui.bootstrap'])
         controller: 'ResetCtrl',
         resolve: { skipIfAuthenticated: skipIfAuthenticated }
       })
+      .when('/addproject', {
+        templateUrl: 'partials/createProject.html',
+        controller: 'HomeController as hc',
+        resolve: { loginRequired: loginRequired }
+      })
+      .when('/adddataset', {
+        templateUrl: 'partials/createdataset.html',
+        controller: 'HomeController as hc',
+        resolve: { loginRequired: loginRequired }
+      })
       .otherwise({
         templateUrl: 'partials/404.html'
       });
@@ -113,7 +123,7 @@ angular.module('MyApp')
     };
   }]);
 
-angular.module('MyApp').controller('HomeController', ["$http", function($http) {
+angular.module('MyApp').controller('HomeController', ["$http", "$location", function($http, $location) {
   console.log('in HomeControler');
   var vm = this;
   var zipToken = '8X5ulJzEJdQAdLVzY8lQSsJdyYfA7m8fjeJFXjjGxagKVckTkFKd7trGsGgz2pPm';
@@ -141,21 +151,21 @@ angular.module('MyApp').controller('HomeController', ["$http", function($http) {
     vm.currentPage = 1; //reset to first page
   };
 
-    vm.initMap = function(zip) {
-      var coords = {
-        lat: Number(zip.lat),
-        lng: Number(zip.lng)
-      };
-      console.log(coords);
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: coords
-      });
-      var marker = new google.maps.Marker({
-        position: coords,
-        map: map
-      });
-    }; // end initMap
+  vm.initMap = function(zip) {
+    var coords = {
+      lat: Number(zip.lat),
+      lng: Number(zip.lng)
+    };
+    console.log(coords);
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: coords
+    });
+    var marker = new google.maps.Marker({
+      position: coords,
+      map: map
+    });
+  }; // end initMap
 
   vm.getLatLong = function(zip) {
     console.log('zipcode', zip);
@@ -210,28 +220,36 @@ angular.module('MyApp').controller('HomeController', ["$http", function($http) {
 
   vm.getProjects();
 
-  vm.addProject = function() {
-    console.log('click post project');
-
-    //  var projectToSend = {
-    //    score: project.score,
-    //    zipcode: project.zipcode,
-    //    name: project.name,
-    //    description: project.description
-    //  };
-
+  vm.addProject = function(project) {
+    console.log('click post project', project);
     var projectToSend = {
-      score: 1,
-      zipcode: 55075,
-      name: 'test project',
-      description: 'this is a test'
+      score: 0,
+      zipcode: project.zipcode,
+      name: project.name,
+      description: project.description
     };
-
     $http.post('/projects', projectToSend).then(function(response) {
       console.log('POST function', response);
     });
     vm.getProjects();
-  }; //  end addProject
+    $location.path('/');
+  };
+
+  vm.addDataset = function(dataset) {
+    console.log('click post project', dataset);
+    var datasetToSend = {
+      score: 0,
+      zipcode: dataset.zipcode,
+      name: dataset.name,
+      description: dataset.description,
+      url: dataset.url
+    };
+    $http.post('/datasets', datasetToSend).then(function(response) {
+      console.log('POST function', response);
+    });
+    vm.getDataSet();
+    $location.path('/');
+  };
 
 }]);
 

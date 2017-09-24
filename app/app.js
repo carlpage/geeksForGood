@@ -35,6 +35,16 @@ angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput', 'ui.bootstrap'])
         controller: 'ResetCtrl',
         resolve: { skipIfAuthenticated: skipIfAuthenticated }
       })
+      .when('/addproject', {
+        templateUrl: 'partials/createProject.html',
+        controller: 'HomeController as hc',
+        resolve: { loginRequired: loginRequired }
+      })
+      .when('/adddataset', {
+        templateUrl: 'partials/createdataset.html',
+        controller: 'HomeController as hc',
+        resolve: { loginRequired: loginRequired }
+      })
       .otherwise({
         templateUrl: 'partials/404.html'
       });
