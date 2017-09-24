@@ -1,4 +1,4 @@
-angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput'])
+angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput', 'ui.bootstrap'])
   .config(["$routeProvider", "$locationProvider", "$authProvider", function($routeProvider, $locationProvider, $authProvider) {
     skipIfAuthenticated.$inject = ["$location", "$auth"];
     loginRequired.$inject = ["$location", "$auth"];
@@ -112,6 +112,20 @@ angular.module('MyApp')
       $location.path('/');
     };
   }]);
+
+angular.module('MyApp').controller('homeController', function() {
+  console.log('in homeControler');
+  var vm = this;
+
+  vm.getDataSet = function() {
+
+  } // end getDataSet
+
+  vm.projects = function() {
+    
+  } // end projects
+
+});
 
 angular.module('MyApp')
   .controller('LoginCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", function($scope, $rootScope, $location, $window, $auth) {

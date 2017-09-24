@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="homeController as hc">
   <div class="row">
 
     <div class="input-group">
@@ -42,33 +42,42 @@
     <div class="col-sm-5">
 
       <tabset>
-        <tab select="" ng-init="" heading="Projects" active="Projects">
-          <div class="card" ng-repeat="pj in projects">
+        <tab select="hc.getProjects" ng-init="hc.getProjects" heading="Projects" active="Projects">
+          <div class="card" >
+            <!-- ng-repeat="pj in hc.projects" -->
             <div class="title">
               <h2>{{pj.title}}</h2>
               <div class="rating pull-right">
-                <span class="glyphicon glyphicon-chevron-up"></span>
-                <span class="glyphicon glyphicon-chevron-down"></span>
+                <i class="fa fa-caret-square-o-up" ng-click="hc.addScore()"></i>
+                <i class="fa fa-caret-square-o-down" ng-click="hc.reduceScore()"></i>
+                <p>{{pj.score}} 21</p>
               </div> <!-- end rating -->
             </div> <!-- end title -->
-            <textarea name="" id="" cols="20" rows="10"></textarea>
+            <textarea name="" id="" rows="3"></textarea>
             <button class="btn-btn-default">Tag</button>
           </div> <!-- end card -->
-        </tab> <!-- end projects tab -->
-        <tab select="alertMe()" heading="Data Set">
-          <div class="card" ng-repeat="ds in dataset">
+         </tab> <!-- end projects tab -->
+
+        <tab select="hc.getDataSet()" heading="Data Set">
+          <div class="card">
+             <!-- ng-repeat="ds in hc.dataset" -->
             <h2>{{ds.title}}</h2>
-            <a href="">{{ds.link}}</a>
+            <div class="rating pull-right">
+              <i class="fa fa-caret-square-o-up" ng-click="hc.addScore()"></i>
+              <i class="fa fa-caret-square-o-down" ng-click="hc.reduceScore()"></i>
+              <p>{{pj.score}} 21</p>
+            </div> <!-- end rating -->
+            <a href="{{ds.link}}">{{ds.link}}</a>
             <button class="btn-btn-default">Tag</button>
           </div> <!-- end card -->
         </tab> <!-- end data set tab -->
-      </tabset> <!-- end tabset -->
 
+      </tabset> <!-- end tabset -->
     </div> <!-- end col-sm-5 -->
 
     <div class="col-sm-5">
       <!-- map goes here -->
-
+      <div id="map"></div>
     </div> <!-- end col-sm-5 -->
 
   </div> <!-- end row -->
