@@ -195,10 +195,10 @@ angular.module('MyApp').controller('HomeController', ["$http", "$location", func
     console.log('getDataList clicked');
     $http.get('/datasets').then(function(response) {
       console.log(response);
-      vm.dataList = response.data.dataList;
-      console.log(vm.getDataSet);
+      vm.datasets = response.data.datasets;
+      console.log(vm.datasets);
     });
-    vm.getLatLong(zip);
+    // vm.getLatLong(zip);
   } // end getDataSet
 
   vm.getProjects = function() {
@@ -212,9 +212,9 @@ angular.module('MyApp').controller('HomeController', ["$http", "$location", func
       }
       console.log('yuuuuuup', arr);
       console.log(zipCode);
-      for (var i = 0; i < arr.length; i++) {
-        vm.getLatLong(arr[i]);
-      }
+      // for (var i = 0; i < arr.length; i++) {
+      //   vm.getLatLong(arr[i]);
+      // }
     });
   } // end projects
 

@@ -5788,6 +5788,13 @@ footer {
       width: 30px;
       height: 30px; }
 
+.quotes {
+  text-align: center; }
+
+img {
+  height: 4.5rem;
+  margin-top: -1.5rem; }
+
 .navbar-default .navbar-nav > li.active > a {
   border-bottom-color: #3f51b5; }
 
@@ -5902,7 +5909,7 @@ textarea {
   margin-bottom: 1rem;
   margin-top: 1rem;
   width: 90%;
-  padding: 2rem;
+  padding: 1rem;
   border-style: solid;
   border-width: 1px;
   border-radius: 20px; }
