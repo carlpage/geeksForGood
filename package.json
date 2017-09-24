@@ -7,7 +7,7 @@
     "build:production": "gulp build --production",
     "deploy": "npm test && git push heroku master",
     "postinstall": "npm run build:production",
-    "start": "node server.js",
+    "start": "gulp build && node server.js",
     "watch": "gulp"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "express-validator": "^2.20.4",
+    "filestack-js": "^0.9.3",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "latest",
     "gulp-autoprefixer": "^3.1.0",
@@ -35,6 +36,7 @@
     "knex": "^0.10.0",
     "moment": "^2.12.0",
     "morgan": "^1.7.0",
+    "ng-tags-input": "^3.2.0",
     "nodemailer": "^2.3.0",
     "pg": "^4.5.1",
     "request": "^2.69.0",

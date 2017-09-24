@@ -22,14 +22,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3">Gender</label>
-          <div class="col-sm-4">
-            <label class="radio-inline radio col-sm-4">
-              <input type="radio" name="gender" value="male" ng-checked="profile.gender === 'male'"><span>Male</span>
-            </label>
-            <label class="radio-inline col-sm-4">
-              <input type="radio" name="gender" value="female" ng-checked="profile.gender === 'female'"><span>Female</span>
-            </label>
+          <label for="tags" class="col-sm-3">Tags</label>
+          <div class="col-sm-7">
+            <!-- <input type="text" name="tags" id="tags" class="form-control" ng-model="profile.tags"> -->
+            <tags-input type="text" name="tags" id="tags" class="form-control" ng-model="profile.tags"></tags-input>
           </div>
         </div>
         <div class="form-group">
@@ -39,19 +35,24 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="website" class="col-sm-3">Website</label>
+          <label for="website" class="col-sm-3">Bio</label>
           <div class="col-sm-7">
-            <input type="text" name="website" id="website" class="form-control" ng-model="profile.website">
+            <input type="text" name="bio" id="bio" class="form-control" ng-model="profile.bio">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3">Gravatar</label>
+          <label class="col-sm-3">Profile Pick</label>
           <div class="col-sm-4">
-            <img ng-src="{{profile.gravatar}}" class="profile" width="100" height="100">
+            <img ng-src="{{profile.profile_pic}}" class="profile" width="100" height="100">
           </div>
         </div>
         <div class="form-group">
+          <div class="">
+
+          </div>
           <div class="col-sm-offset-3 col-sm-4">
+            <button type="submit" class="btn btn-info" ng-model="profile.profile_pic" ng-click="showPicker();">Upload Photo</button>
+
             <button type="submit" class="btn btn-success">Update Profile</button>
           </div>
         </div>

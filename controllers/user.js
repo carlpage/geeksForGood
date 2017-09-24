@@ -119,9 +119,9 @@ exports.accountPut = function(req, res, next) {
     user.save({
       email: req.body.email,
       name: req.body.name,
-      gender: req.body.gender,
       location: req.body.location,
-      website: req.body.website
+      bio: req.body.bio,
+      tags: req.body.tags
     }, { patch: true });
   }
   user.fetch().then(function(user) {

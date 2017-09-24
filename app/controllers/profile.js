@@ -73,4 +73,12 @@ angular.module('MyApp')
           };
         });
     };
+    $scope.client = filestack.init('A9SEH898vToqPWbDc1VCAz');
+
+     $scope.showPicker = function(){
+        $scope.client.pick({
+        }).then(function(result) {
+            console.log(JSON.stringify(result.filesUploaded));
+        });
+    };
   });

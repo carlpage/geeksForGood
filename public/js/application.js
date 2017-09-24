@@ -1,1 +1,318 @@
-angular.module("MyApp",["ngRoute","satellizer"]).config(["$routeProvider","$locationProvider","$authProvider",function(t,e,r){function a(t,e){e.isAuthenticated()&&t.path("/")}function o(t,e){e.isAuthenticated()||t.path("/login")}a.$inject=["$location","$auth"],o.$inject=["$location","$auth"],e.html5Mode(!0),t.when("/",{templateUrl:"partials/home.html"}).when("/contact",{templateUrl:"partials/contact.html",controller:"ContactCtrl"}).when("/login",{templateUrl:"partials/login.html",controller:"LoginCtrl",resolve:{skipIfAuthenticated:a}}).when("/signup",{templateUrl:"partials/signup.html",controller:"SignupCtrl",resolve:{skipIfAuthenticated:a}}).when("/account",{templateUrl:"partials/profile.html",controller:"ProfileCtrl",resolve:{loginRequired:o}}).when("/forgot",{templateUrl:"partials/forgot.html",controller:"ForgotCtrl",resolve:{skipIfAuthenticated:a}}).when("/reset/:token",{templateUrl:"partials/reset.html",controller:"ResetCtrl",resolve:{skipIfAuthenticated:a}}).otherwise({templateUrl:"partials/404.html"}),r.loginUrl="/login",r.signupUrl="/signup"}]).run(["$rootScope","$window",function(t,e){e.localStorage.user&&(t.currentUser=JSON.parse(e.localStorage.user))}]),angular.module("MyApp").controller("ContactCtrl",["$scope","Contact",function(t,e){t.sendContactForm=function(){e.send(t.contact).then(function(e){t.messages={success:[e.data]}})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})}}]),angular.module("MyApp").controller("ForgotCtrl",["$scope","Account",function(t,e){t.forgotPassword=function(){e.forgotPassword(t.user).then(function(e){t.messages={success:[e.data]}})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})}}]),angular.module("MyApp").controller("HeaderCtrl",["$scope","$location","$window","$auth",function(t,e,r,a){t.isActive=function(t){return t===e.path()},t.isAuthenticated=function(){return a.isAuthenticated()},t.logout=function(){a.logout(),delete r.localStorage.user,e.path("/")}}]),angular.module("MyApp").controller("LoginCtrl",["$scope","$rootScope","$location","$window","$auth",function(t,e,r,a,o){t.login=function(){o.login(t.user).then(function(t){e.currentUser=t.data.user,a.localStorage.user=JSON.stringify(t.data.user),r.path("/account")})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})},t.authenticate=function(n){o.authenticate(n).then(function(t){e.currentUser=t.data.user,a.localStorage.user=JSON.stringify(t.data.user),r.path("/")})["catch"](function(e){e.error?t.messages={error:[{msg:e.error}]}:e.data&&(t.messages={error:[e.data]})})}}]),angular.module("MyApp").controller("ProfileCtrl",["$scope","$rootScope","$location","$window","$auth","Account",function(t,e,r,a,o,n){t.profile=e.currentUser,t.updateProfile=function(){n.updateProfile(t.profile).then(function(r){e.currentUser=r.data.user,a.localStorage.user=JSON.stringify(r.data.user),t.messages={success:[r.data]}})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})},t.changePassword=function(){n.changePassword(t.profile).then(function(e){t.messages={success:[e.data]}})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})},t.link=function(e){o.link(e).then(function(e){t.messages={success:[e.data]}})["catch"](function(e){a.scrollTo(0,0),t.messages={error:[e.data]}})},t.unlink=function(e){o.unlink(e).then(function(){t.messages={success:[response.data]}})["catch"](function(e){t.messages={error:[e.data]}})},t.deleteAccount=function(){n.deleteAccount().then(function(){o.logout(),delete a.localStorage.user,r.path("/")})["catch"](function(e){t.messages={error:[e.data]}})}}]),angular.module("MyApp").controller("ResetCtrl",["$scope","Account",function(t,e){t.resetPassword=function(){e.resetPassword(t.user).then(function(e){t.messages={success:[e.data]}})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})}}]),angular.module("MyApp").controller("SignupCtrl",["$scope","$rootScope","$location","$window","$auth",function(t,e,r,a,o){t.signup=function(){o.signup(t.user).then(function(t){o.setToken(t),e.currentUser=t.data.user,a.localStorage.user=JSON.stringify(t.data.user),r.path("/")})["catch"](function(e){t.messages={error:Array.isArray(e.data)?e.data:[e.data]}})},t.authenticate=function(n){o.authenticate(n).then(function(t){e.currentUser=t.data.user,a.localStorage.user=JSON.stringify(t.data.user),r.path("/")})["catch"](function(e){e.error?t.messages={error:[{msg:e.error}]}:e.data&&(t.messages={error:[e.data]})})}}]),angular.module("MyApp").factory("Account",["$http",function(t){return{updateProfile:function(e){return t.put("/account",e)},changePassword:function(e){return t.put("/account",e)},deleteAccount:function(){return t["delete"]("/account")},forgotPassword:function(e){return t.post("/forgot",e)},resetPassword:function(e){return t.post("/reset",e)}}}]),angular.module("MyApp").factory("Contact",["$http",function(t){return{send:function(e){return t.post("/contact",e)}}}]);
+angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput'])
+  .config(["$routeProvider", "$locationProvider", "$authProvider", function($routeProvider, $locationProvider, $authProvider) {
+    skipIfAuthenticated.$inject = ["$location", "$auth"];
+    loginRequired.$inject = ["$location", "$auth"];
+    $locationProvider.html5Mode(true);
+
+    $routeProvider
+      .when('/', {
+        templateUrl: 'partials/home.html'
+      })
+      .when('/contact', {
+        templateUrl: 'partials/contact.html',
+        controller: 'ContactCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'partials/login.html',
+        controller: 'LoginCtrl',
+        resolve: { skipIfAuthenticated: skipIfAuthenticated }
+      })
+      .when('/signup', {
+        templateUrl: 'partials/signup.html',
+        controller: 'SignupCtrl',
+        resolve: { skipIfAuthenticated: skipIfAuthenticated }
+      })
+      .when('/account', {
+        templateUrl: 'partials/profile.html',
+        controller: 'ProfileCtrl',
+        resolve: { loginRequired: loginRequired }
+      })
+      .when('/forgot', {
+        templateUrl: 'partials/forgot.html',
+        controller: 'ForgotCtrl',
+        resolve: { skipIfAuthenticated: skipIfAuthenticated }
+      })
+      .when('/reset/:token', {
+        templateUrl: 'partials/reset.html',
+        controller: 'ResetCtrl',
+        resolve: { skipIfAuthenticated: skipIfAuthenticated }
+      })
+      .otherwise({
+        templateUrl: 'partials/404.html'
+      });
+
+    $authProvider.loginUrl = '/login';
+    $authProvider.signupUrl = '/signup';
+
+    function skipIfAuthenticated($location, $auth) {
+      if ($auth.isAuthenticated()) {
+        $location.path('/');
+      }
+    }
+
+    function loginRequired($location, $auth) {
+      if (!$auth.isAuthenticated()) {
+        $location.path('/login');
+      }
+    }
+  }])
+  .run(["$rootScope", "$window", function($rootScope, $window) {
+    if ($window.localStorage.user) {
+      $rootScope.currentUser = JSON.parse($window.localStorage.user);
+    }
+  }]);
+
+angular.module('MyApp')
+  .controller('ContactCtrl', ["$scope", "Contact", function($scope, Contact) {
+    $scope.sendContactForm = function() {
+      Contact.send($scope.contact)
+        .then(function(response) {
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    };
+  }]);
+
+angular.module('MyApp')
+  .controller('ForgotCtrl', ["$scope", "Account", function($scope, Account) {
+    $scope.forgotPassword = function() {
+      Account.forgotPassword($scope.user)
+        .then(function(response) {
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    };
+  }]);
+
+angular.module('MyApp')
+  .controller('HeaderCtrl', ["$scope", "$location", "$window", "$auth", function($scope, $location, $window, $auth) {
+    $scope.isActive = function (viewLocation) {
+      return viewLocation === $location.path();
+    };
+    
+    $scope.isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
+    
+    $scope.logout = function() {
+      $auth.logout();
+      delete $window.localStorage.user;
+      $location.path('/');
+    };
+  }]);
+
+angular.module('MyApp')
+  .controller('LoginCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", function($scope, $rootScope, $location, $window, $auth) {
+    $scope.login = function() {
+      $auth.login($scope.user)
+        .then(function(response) {
+          $rootScope.currentUser = response.data.user;
+          $window.localStorage.user = JSON.stringify(response.data.user);
+          $location.path('/account');
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    };
+
+    $scope.authenticate = function(provider) {
+      $auth.authenticate(provider)
+        .then(function(response) {
+          $rootScope.currentUser = response.data.user;
+          $window.localStorage.user = JSON.stringify(response.data.user);
+          $location.path('/');
+        })
+        .catch(function(response) {
+          if (response.error) {
+            $scope.messages = {
+              error: [{ msg: response.error }]
+            };
+          } else if (response.data) {
+            $scope.messages = {
+              error: [response.data]
+            };
+          }
+        });
+    };
+  }]);
+angular.module('MyApp')
+  .controller('ProfileCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", "Account", function($scope, $rootScope, $location, $window, $auth, Account) {
+    $scope.profile = $rootScope.currentUser;
+
+    $scope.updateProfile = function() {
+      Account.updateProfile($scope.profile)
+        .then(function(response) {
+          $rootScope.currentUser = response.data.user;
+          $window.localStorage.user = JSON.stringify(response.data.user);
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    };
+
+    $scope.changePassword = function() {
+      Account.changePassword($scope.profile)
+        .then(function(response) {
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    };
+
+    $scope.link = function(provider) {
+      $auth.link(provider)
+        .then(function(response) {
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $window.scrollTo(0, 0);
+          $scope.messages = {
+            error: [response.data]
+          };
+        });
+    };
+    $scope.unlink = function(provider) {
+      $auth.unlink(provider)
+        .then(function() {
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: [response.data]
+          };
+        });
+    };
+
+    $scope.deleteAccount = function() {
+      Account.deleteAccount()
+        .then(function() {
+          $auth.logout();
+          delete $window.localStorage.user;
+          $location.path('/');
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: [response.data]
+          };
+        });
+    };
+    $scope.client = filestack.init('A9SEH898vToqPWbDc1VCAz');
+
+     $scope.showPicker = function(){
+        $scope.client.pick({
+        }).then(function(result) {
+            console.log(JSON.stringify(result.filesUploaded));
+        });
+    };
+  }]);
+
+angular.module('MyApp')
+  .controller('ResetCtrl', ["$scope", "Account", function($scope, Account) {
+    $scope.resetPassword = function() {
+      Account.resetPassword($scope.user)
+        .then(function(response) {
+          $scope.messages = {
+            success: [response.data]
+          };
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    }
+  }]);
+
+angular.module('MyApp')
+  .controller('SignupCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", function($scope, $rootScope, $location, $window, $auth) {
+    $scope.signup = function() {
+      $auth.signup($scope.user)
+        .then(function(response) {
+          $auth.setToken(response);
+          $rootScope.currentUser = response.data.user;
+          $window.localStorage.user = JSON.stringify(response.data.user);
+          $location.path('/');
+        })
+        .catch(function(response) {
+          $scope.messages = {
+            error: Array.isArray(response.data) ? response.data : [response.data]
+          };
+        });
+    };
+
+    $scope.authenticate = function(provider) {
+      $auth.authenticate(provider)
+        .then(function(response) {
+          $rootScope.currentUser = response.data.user;
+          $window.localStorage.user = JSON.stringify(response.data.user);
+          $location.path('/');
+        })
+        .catch(function(response) {
+          if (response.error) {
+            $scope.messages = {
+              error: [{ msg: response.error }]
+            };
+          } else if (response.data) {
+            $scope.messages = {
+              error: [response.data]
+            };
+          }
+        });
+    };
+  }]);
+angular.module('MyApp')
+  .factory('Account', ["$http", function($http) {
+    return {
+      updateProfile: function(data) {
+        return $http.put('/account', data);
+      },
+      changePassword: function(data) {
+        return $http.put('/account', data);
+      },
+      deleteAccount: function() {
+        return $http.delete('/account');
+      },
+      forgotPassword: function(data) {
+        return $http.post('/forgot', data);
+      },
+      resetPassword: function(data) {
+        return $http.post('/reset', data);
+      }
+    };
+  }]);
+angular.module('MyApp')
+  .factory('Contact', ["$http", function($http) {
+    return {
+      send: function(data) {
+        return $http.post('/contact', data);
+      }
+    };
+  }]);
