@@ -2,7 +2,7 @@
   <div class="row">
 
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
+      <input type="text" class="form-control" placeholder="Search for..." ng-model="hc.query">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Go!</button>
       </span>
@@ -20,19 +20,19 @@
         </div>
         <div class="panel-body">
           <div class="checkbox">
-            <label><input type="checkbox" class="icheck"> Lorem (12)</label>
+            <label><input type="checkbox" class="icheck"> Angular (12)</label>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" class="icheck"> Ipsum (2)</label>
+            <label><input type="checkbox" class="icheck"> Python (2)</label>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" class="icheck"> Porro (4)</label>
+            <label><input type="checkbox" class="icheck"> CSS (4)</label>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" class="icheck"> Quisquam (7)</label>
+            <label><input type="checkbox" class="icheck"> Java (7)</label>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" class="icheck"> Dolorem (8)</label>
+            <label><input type="checkbox" class="icheck"> Inequity (8)</label>
           </div>
         </div> <!-- end panel-body -->
       </div> <!-- end panel -->
@@ -43,7 +43,7 @@
 
       <tabset>
         <tab select="hc.getProjects" ng-init="hc.getProjects" heading="Projects" active="Projects">
-          <div class="card center-block" ng-repeat="pj in hc.projectList">
+          <div class="card center-block" ng-repeat="pj in hc.projectList | filter:hc.query">
             <div class="title">
               <h2>{{pj.name}}</h2>
               <p>{{pj.description}}</p>
