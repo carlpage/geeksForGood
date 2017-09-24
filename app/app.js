@@ -1,4 +1,4 @@
-angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput'])
+angular.module('MyApp', ['ngRoute', 'satellizer','ngTagsInput', 'ui.bootstrap'])
   .config(function($routeProvider, $locationProvider, $authProvider) {
     $locationProvider.html5Mode(true);
 

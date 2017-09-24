@@ -6,7 +6,6 @@ var ngAnnotate = require('gulp-ng-annotate');
 var templateCache = require('gulp-angular-templatecache');
 
 var autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var csso = require('gulp-csso');
 var buffer = require('vinyl-buffer');
@@ -21,9 +20,6 @@ gulp.task('sass', function() {
     .pipe(autoprefixer())
     .pipe(gulpif(argv.production, csso()))
     .pipe(gulp.dest('public/css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
 });
 
 gulp.task('angular', function() {
@@ -36,9 +32,6 @@ gulp.task('angular', function() {
     .pipe(ngAnnotate())
     .pipe(gulpif(argv.production, uglify()))
     .pipe(gulp.dest('public/js'))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
 });
 
 gulp.task('templates', function() {
@@ -49,9 +42,6 @@ gulp.task('templates', function() {
     }))
     .pipe(gulpif(argv.production, uglify()))
     .pipe(gulp.dest('public/js'))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
 });
 
 gulp.task('vendor', function() {
