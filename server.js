@@ -25,6 +25,8 @@ var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 var projectController = require('./controllers/project');
 var datasetController = require('./controllers/dataset');
+var projectcommentController = require('./controllers/projectcomment');
+var datasetcommentController = require('./controllers/datasetcomment');
 
 var app = express();
 
@@ -72,6 +74,10 @@ app.post('/projects', projectController.projectPost);
 app.post('/datasets', datasetController.datasetPost);
 app.get('/projects', projectController.projectList);
 app.get('/datasets', datasetController.datasetList);
+app.post('/projectcomments/:projectId', projectcommentController.projectCommentPost);
+app.get('/projectcomments/:projectId', projectcommentController.commentList);
+app.post('/datasetcomments/:datasetId', datasetcommentController.datasetCommentPost);
+app.get('/datasetcomments/:datasetId', datasetcommentController.commentList);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'app', 'index.html'));
