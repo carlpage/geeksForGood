@@ -30,3 +30,5 @@ bower_components
 Thumbs.db
 
 .env
+
+package-lock.json

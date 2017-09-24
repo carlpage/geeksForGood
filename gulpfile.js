@@ -4,7 +4,9 @@ var argv = require('yargs').argv;
 var concat = require('gulp-concat');
 var ngAnnotate = require('gulp-ng-annotate');
 var templateCache = require('gulp-angular-templatecache');
+
 var autoprefixer = require('gulp-autoprefixer');
+var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var csso = require('gulp-csso');
 var buffer = require('vinyl-buffer');
@@ -18,26 +20,38 @@ gulp.task('sass', function() {
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulpif(argv.production, csso()))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public/css'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 gulp.task('angular', function() {
   return gulp.src([
-    'app/app.js',
-    'app/controllers/*.js',
-    'app/services/*.js'
-  ])
+      'app/app.js',
+      'app/controllers/*.js',
+      'app/services/*.js'
+    ])
     .pipe(concat('application.js'))
     .pipe(ngAnnotate())
     .pipe(gulpif(argv.production, uglify()))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('public/js'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 gulp.task('templates', function() {
   return gulp.src('app/partials/**/*.html')
-    .pipe(templateCache({ root: 'partials', module: 'MyApp' }))
+    .pipe(templateCache({
+      root: 'partials',
+      module: 'MyApp'
+    }))
     .pipe(gulpif(argv.production, uglify()))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('public/js'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 gulp.task('vendor', function() {
@@ -47,6 +61,11 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('watch', function() {
+  browserSync.init({
+    server: {
+      baseDir: './'
+    }
+  });
   gulp.watch('public/css/**/*.scss', ['sass']);
   gulp.watch('app/partials/**/*.html', ['templates']);
   gulp.watch('app/**/*.js', ['angular']);

@@ -116,6 +116,7 @@ angular.module('MyApp')
 angular.module('MyApp')
   .controller('LoginCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", function($scope, $rootScope, $location, $window, $auth) {
     $scope.login = function() {
+      console.log('in login');
       $auth.login($scope.user)
         .then(function(response) {
           $rootScope.currentUser = response.data.user;
@@ -130,6 +131,7 @@ angular.module('MyApp')
     };
 
     $scope.authenticate = function(provider) {
+      console.log('in authenticate');
       $auth.authenticate(provider)
         .then(function(response) {
           $rootScope.currentUser = response.data.user;
@@ -148,7 +150,9 @@ angular.module('MyApp')
           }
         });
     };
-  }]);
+
+  }]); // end controller
+
 angular.module('MyApp')
   .controller('ProfileCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", "Account", function($scope, $rootScope, $location, $window, $auth, Account) {
     $scope.profile = $rootScope.currentUser;
