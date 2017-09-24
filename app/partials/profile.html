@@ -41,70 +41,92 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3">Profile Pick</label>
+          <label class="col-sm-3">Profile Pic</label>
           <div class="col-sm-4">
-            <img ng-src="{{profile.profile_pic}}" class="profile" width="100" height="100">
+            <img ng-src="https://media.licdn.com/media/p/5/005/07b/08e/3310267.jpg" class="profile" width="100" height="100">
           </div>
         </div>
         <div class="form-group">
           <div class="">
-
           </div>
           <div class="col-sm-offset-3 col-sm-4">
             <button type="submit" class="btn btn-info" ng-model="profile.profile_pic" ng-click="showPicker();">Upload Photo</button>
-
             <button type="submit" class="btn btn-success">Update Profile</button>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <div class="panel">
-    <div class="panel-body">
-      <form ng-submit="changePassword()" class="form-horizontal">
-        <legend>Change Password</legend>
-        <div class="form-group">
-          <label for="password" class="col-sm-3">New Password</label>
-          <div class="col-sm-7">
-            <input type="password" name="password" id="password" class="form-control" ng-model="profile.password">
-          </div>
+  <div style="margin-left: -15px;" class="container">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="">
+          <legend for="">Contributions</legend>
+          <label for="">Projects</label>
+          <ul>
+            <li>Geeks for Good</li>
+            <li>Generous IT</li>
+          </ul>
         </div>
-        <div class="form-group">
-          <label for="confirm" class="col-sm-3">Confirm Password</label>
-          <div class="col-sm-7">
-            <input type="password" name="confirm" id="confirm" class="form-control" ng-model="profile.confirm">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-4 col-sm-offset-3">
-            <button type="submit" class="btn btn-success">Change Password</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="panel">
-    <div class="panel-body">
-      <div class="form-horizontal">
-        <legend>Linked Accounts</legend>
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-4">
+        <div class="">
+          <label for="">Reputation</label>
+          <p>Rep Level: Super Geek</p>
+          <div >
+            Your level is Super Geek, you have 115 rep due to contributions within the community.
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="panel">
-    <div class="panel-body">
-      <form ng-submit="deleteAccount()" class="form-horizontal">
-        <legend>Delete Account</legend>
-        <div class="form-group">
-          <p class="col-sm-offset-3 col-sm-9">You can delete your account, but keep in mind this action is irreversible.</p>
-          <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-danger">Delete my account</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+  </div> <!--end of container -->
+
+
+  
+  <!-- <div class="panel">
+  <div class="panel-body">
+  <form ng-submit="changePassword()" class="form-horizontal">
+  <legend>Change Password</legend>
+  <div class="form-group">
+  <label for="password" class="col-sm-3">New Password</label>
+  <div class="col-sm-7">
+  <input type="password" name="password" id="password" class="form-control" ng-model="profile.password">
 </div>
+</div>
+<div class="form-group">
+<label for="confirm" class="col-sm-3">Confirm Password</label>
+<div class="col-sm-7">
+<input type="password" name="confirm" id="confirm" class="form-control" ng-model="profile.confirm">
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-4 col-sm-offset-3">
+<button type="submit" class="btn btn-success">Change Password</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class="panel">
+<div class="panel-body">
+<div class="form-horizontal">
+<legend>Linked Accounts</legend>
+<div class="form-group">
+<div class="col-sm-offset-3 col-sm-4">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-body">
+<form ng-submit="deleteAccount()" class="form-horizontal">
+<legend>Delete Account</legend>
+<div class="form-group">
+<p class="col-sm-offset-3 col-sm-9">You can delete your account, but keep in mind this action is irreversible.</p>
+<div class="col-sm-offset-3 col-sm-9">
+<button type="submit" class="btn btn-danger">Delete my account</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div> -->
