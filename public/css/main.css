@@ -5782,14 +5782,20 @@ footer {
     border-bottom-color: #bdbdbd; }
   .navbar-default .navbar-nav > li > a.navbar-avatar {
     padding-top: 13px;
-    padding-bottom: 10px; }
+    padding-bottom: 10px;
+  margin-top: 1rem;}
     .navbar-default .navbar-nav > li > a.navbar-avatar img {
       border-radius: 50%;
       width: 30px;
       height: 30px; }
 
+.quote {
+  color: green; }
+
 .quotes {
-  text-align: center; }
+  text-align: center;
+  /*text-decoration: underline;*/
+ }
 
 img {
   height: 4.5rem;
@@ -5914,7 +5920,8 @@ textarea {
   border-width: 1px;
   border-radius: 20px; }
   .card .rating {
-    float: right; }
+    float: right;
+  margin-top: -9rem; }
   .card textarea {
     width: 90%; }
   .card .fa-caret-square-o-down {

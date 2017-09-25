@@ -55,8 +55,8 @@
             </div> <!-- end title -->
             <textarea name="" id="" rows="3" placeholder="Type you comment here..."></textarea>
             <button class="btn-btn-default">Tag</button>
-            <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
-            <div collapse="isCollapsed">
+            <button class="btn btn-default" ng-click="hc.isCollapsed = !hc.isCollapsed">View Comments</button>
+            <div collapse="hc.isCollapsed">
               <div class="well well-lg">
                 <h3>Excited for this event!</h3>
                 <h3>I'm going!</h3>
@@ -71,7 +71,7 @@
          </tab> <!-- end projects tab -->
 
         <tab select="hc.getDataSet()" ng-click="hc.getDataSet()" heading="Data Set">
-          <div class="card" ng-repeat="ds in hc.datasets | orderBy:'-score'">
+          <div class="card" ng-repeat="ds in hc.datasets | filter:hc.query | orderBy:'-score'">
             <h2>{{ds.name}}</h2>
             <h4>{{ds.description}}</h4>
             <div class="rating pull-right">
@@ -79,11 +79,11 @@
               <i class="fa fa-caret-square-o-down" ng-click="{{ds.score}} -= 1"></i>
               <h4>{{ds.score}}</h4>
             </div> <!-- end rating -->
-            <a href="{{ds.link}}">{{ds.link}}</a>
+            <a ng-href="{{ds.link}}">{{ds.link}}</a>
             <button class="btn-btn-default">Tag</button>
 
           </div> <!-- end card -->
-          <div class="center-block">
+          <div class="text-center">
             <pagination total-items="hc.dataList.length" ng-model="hc.currentPage" items-per-page="hc.itemsPerPage" class="pagination-sm" ng-change="hc.pageChanged()"></pagination>
           </div>
         </tab> <!-- end data set tab -->
@@ -95,17 +95,17 @@
       <!-- map goes here -->
       <h2 class="quotes">Quotes</h2>
       <blockquote>
-      <h3>"Its absolutely essential to keep in touch after the hackathon...otherwise all these projects might fizzle out"</h3>
-      <h4>-Mary Rick, CEO of Impact Kub</h4>
+      <h3 class="quote">"Its absolutely essential to keep in touch after the hackathon... otherwise all these projects might fizzle out"</h3>
+      <h4>-Mary Rick, CEO of Impact Hub</h4>
       </blockquote>
       <hr>
       <blockquote>
-      <h3>"Kids could get a job because of Geeks for Good"</h3>
+      <h3 class="quote">"Kids could get a job because of Geeks for Good"</h3>
       <h4>-Jonathan Vary, a sponsor of Generous IT</h4>
       </blockquote>
       <hr>
       <blockquote>
-      <h3>"Connecting people to ongoing tech proojects is the missing link"</h3>
+      <h3 class="quote">"Connecting people to ongoing tech proojects is the missing link"</h3>
       <h4>-Steven Clift, Ashoka Fellow</h4>
       <h4>Executive founder - E-democracy.org</h4>
       <blockquote>

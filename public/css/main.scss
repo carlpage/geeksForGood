@@ -44,6 +44,10 @@ body {
   margin-bottom: 44px;
 }
 
+.profilePic {
+  height: 4rem;
+}
+
 footer {
   position: absolute;
   width: 100%;
@@ -78,6 +82,7 @@ footer {
   &.navbar-avatar {
     padding-top: $navbar-padding-vertical - 4.5;
     padding-bottom: ($navbar-padding-vertical - 4.5) - 3;
+    margin-top: 1rem;
     img {
       border-radius: 50%;
       width: 30px;
@@ -85,6 +90,10 @@ footer {
 
     }
   }
+}
+
+.quote {
+  color: green;
 }
 
 .quotes {
@@ -264,6 +273,7 @@ textarea {
   border-radius: 20px;
   .rating {
     float: right
+    margin-top: -9rem;
   }
   textarea {
     width: 90%;
@@ -276,6 +286,10 @@ textarea {
     color: red;
     font-size: 2rem;
   }
+}
+
+.profile {
+  height: 4rem;
 }
 
 #map {
