@@ -1,10 +1,7 @@
 ## Geeks For Good
 CodeSwitch 2017
 
-If you're a engineer, developer, or designer and you want to use your noggin to make society better, this is the group for you!
-
-
-
+If you're an engineer, developer, or designer and you want to use your noggin to make society better, this is the group for you!
 
 ### Configuration
 - **Platform:** node
